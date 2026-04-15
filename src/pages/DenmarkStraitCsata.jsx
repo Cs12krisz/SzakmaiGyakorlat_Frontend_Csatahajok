@@ -13,27 +13,31 @@ async function getDenmarkStraitCsata() {
         const response = await fetch(`https://localhost:7074/api/Csata/Resztvevok/${csata}`, {
             method: "GET"
         })
+
+
         setAdat(await response.json())
     } catch (error) {
         
     }
 }
 
-async function deletehajo(hajoNev, csata) {
+async function deletehajo(hajoNev) {
     try {
         if(confirm("Biztosan szeretnéd törölni?")){
-            const response = await fetch(`https://localhost:7074/api/Kimenet/KimenetTorles/Denmark%20Strait/${hajoNev}`, {
+            const response = await fetch(`https://localhost:7074/api/Kimenet/KimenetTorles/Denmark%20Strai/${hajoNev}`, {
                 method: "DELETE"
             })
 
             if (response.ok) {
                 alert("Sikeres törlés!")
                 navigate("/csatahajok")
+            }else{
+                throw await response.text();
             }
         }
         
     } catch (error) {
-        console.error(error.response)
+        console.error(error)
     }
 }
 
@@ -50,7 +54,7 @@ useEffect(() => {
                 <div className="card" key={index}>
                     <div className="card-body">
                         <h6 className="card-title">{elem}</h6>
-                        <button className="btn bg-danger" onClick={() => {deletehajo(elem, csata)}}><i className="bi bi-trash"></i></button>
+                        <button className="btn bg-danger" onClick={() => {deletehajo(elem)}}><i className="bi bi-trash"></i></button>
                     </div>
                 </div>
             ))}
