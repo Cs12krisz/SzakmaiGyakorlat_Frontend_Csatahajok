@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react"
 import { Navbar } from "../App"
+import { useNavigate } from "react-router-dom"
 
 function DenmarkStraitCsata() {
+    const navigate = useNavigate()
     const [adat, setAdat] = useState([])
+    const [csata,] = useState("Denmark Strait")
+
+
 async function getDenmarkStraitCsata() {
     try {
-        const response = await fetch("https://localhost:7074/api/Csata/Resztvevok/Denmark%20Strait", {
+        const response = await fetch(`https://localhost:7074/api/Csata/Resztvevok/${csata}`, {
             method: "GET"
         })
         setAdat(await response.json())
@@ -13,9 +18,28 @@ async function getDenmarkStraitCsata() {
         
     }
 }
+
+async function deletehajo(hajoNev, csata) {
+    try {
+        if(confirm("Biztosan szeretnéd törölni?")){
+            const response = await fetch(`https://localhost:7074/api/Kimenet/KimenetTorles/Denmark%20Strait/${hajoNev}`, {
+                method: "DELETE"
+            })
+
+            if (response.ok) {
+                alert("Sikeres törlés!")
+                navigate("/csatahajok")
+            }
+        }
+        
+    } catch (error) {
+        console.error(error.response)
+    }
+}
+
 useEffect(() => {
     getDenmarkStraitCsata()
-})
+}, [])
 
     return(
         <>
@@ -26,7 +50,7 @@ useEffect(() => {
                 <div className="card" key={index}>
                     <div className="card-body">
                         <h6 className="card-title">{elem}</h6>
-                        <button className="btn bg-danger"><i className="bi bi-trash"></i></button>
+                        <button className="btn bg-danger" onClick={() => {deletehajo(elem, csata)}}><i className="bi bi-trash"></i></button>
                     </div>
                 </div>
             ))}
