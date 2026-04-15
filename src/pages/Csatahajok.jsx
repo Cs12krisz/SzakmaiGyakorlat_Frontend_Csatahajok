@@ -53,7 +53,7 @@ async function deletehajo() {
                             <p>Ágyúk száma: {elem.agyukSzama}</p>
                             <Link to={`/csatahajo/${elem.name}`}>Részletek</Link>
                         </div>
-                        <div className="bg-danger" onClick={() => {}}></div>
+                        <button className="btn bg-danger" onClick={() => {}}>Törlés</button>
                     </div>
                 </div>
             ))}
