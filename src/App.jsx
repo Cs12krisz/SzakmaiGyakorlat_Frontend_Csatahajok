@@ -33,7 +33,6 @@ export const App = () => {
         <Route path="/csatahajok" element={<Csatahajok/>}/>
         <Route path="/csatahajo/:nev" element={<CsatahajoElem/>}/>
         <Route path="/DenmarkStraitCsata" element={<DenmarkStraitCsata/>}/>
-
       </Routes>
     </>
   )
